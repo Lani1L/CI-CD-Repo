@@ -28,33 +28,33 @@ jobs:
       - name: Run tests
         run: pytest
 
-cd:
-  name: Deploy to GitHub Pages (CD)
-  needs: ci  # runs only if CI passes
-  runs-on: ubuntu-latest
-  if: github.ref == 'refs/heads/main'
+  cd:
+    name: Deploy to GitHub Pages (CD)
+    needs: ci  # runs only if CI passes
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
-
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-
-    - name: Generate HTML site
-      run: python src/generate_site.py
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site
-
-    - name: Show GitHub Pages URL
-      run: |
-        echo "Your site is deployed at: https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY##*/}/"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+  
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+  
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+  
+      - name: Generate HTML site
+        run: python src/generate_site.py
+  
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+  
+      - name: Show GitHub Pages URL
+        run: |
+          echo "Your site is deployed at: https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY##*/}/"
