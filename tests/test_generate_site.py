@@ -1,6 +1,6 @@
 import sys
 sys.path.append('src/')
-import generate_html
+import generate_site
  
 
 def test_generate_html():
